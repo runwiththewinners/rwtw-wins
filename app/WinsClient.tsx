@@ -277,7 +277,7 @@ export default function WinsClient({ authenticated, userName, userId, userTier }
           </div>
 
           <div className="filter-tabs">
-            {[["all", "All"], ["highrollers", "High Rollers"], ["premium", "Premium"], ["playerprops", "Player Props"], ["free", "Free"], ["week", "This Week"]].map(([key, label]) => (
+            {[["all", "All"], ["highrollers", "High Rollers"], ["premium", "Premium"], ["playerprops", "Player Props"], ["free", "Free"]].map(([key, label]) => (
               <button key={key} className={`filter-tab${filter === key ? " active" : ""}`} onClick={() => setFilter(key)}>
                 {label}
               </button>
