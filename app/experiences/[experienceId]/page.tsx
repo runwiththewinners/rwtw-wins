@@ -20,6 +20,7 @@ export default async function ExperiencePage({
   const PRODUCTS: Record<string, string> = {
     highrollers: "prod_bNsUIqwSfzLzU",
     premium: "prod_o1jjamUG8rP8W",
+    playerprops: "prod_RYRii4L26sK9m",
   };
 
   try {

@@ -33,6 +33,7 @@ const CHANNELS = [
 const TIER_CONFIG: Record<string, { label: string; icon: string; cls: string; avatarCls: string }> = {
   highrollers: { label: "High Rollers", icon: "👑", cls: "tier-hr", avatarCls: "av-hr" },
   premium: { label: "Premium", icon: "💎", cls: "tier-prem", avatarCls: "av-prem" },
+  playerprops: { label: "Player Props", icon: "🎯", cls: "tier-props", avatarCls: "av-props" },
   free: { label: "Member", icon: "", cls: "tier-free", avatarCls: "av-free" },
 };
 
@@ -217,7 +218,9 @@ export default function WinsClient({ authenticated, userName, userId, userTier }
 
   const filtered = filter === "all" ? wins : wins.filter((w) => {
     if (filter === "highrollers") return w.userTier === "highrollers";
+    if (filter === "playerprops") return w.userTier === "playerprops";
     if (filter === "premium") return w.userTier === "premium";
+    if (filter === "free") return w.userTier === "free";
     if (filter === "week") {
       return Date.now() - new Date(w.createdAt).getTime() < 7 * 24 * 60 * 60 * 1000;
     }
@@ -269,14 +272,12 @@ export default function WinsClient({ authenticated, userName, userId, userTier }
             </div>
           )}
 
-          {authenticated && (
-            <div className="post-btn-wrap">
-              <button className="post-btn" onClick={() => setShowModal(true)}>📸 Post Your Win</button>
-            </div>
-          )}
+          <div className="post-btn-wrap">
+            <button className="post-btn" onClick={() => setShowModal(true)}>📸 Post Your Win</button>
+          </div>
 
           <div className="filter-tabs">
-            {[["all", "All"], ["highrollers", "High Rollers"], ["premium", "Premium"], ["week", "This Week"]].map(([key, label]) => (
+            {[["all", "All"], ["highrollers", "High Rollers"], ["premium", "Premium"], ["playerprops", "Player Props"], ["free", "Free"], ["week", "This Week"]].map(([key, label]) => (
               <button key={key} className={`filter-tab${filter === key ? " active" : ""}`} onClick={() => setFilter(key)}>
                 {label}
               </button>
@@ -442,6 +443,7 @@ body{background:var(--page-bg);font-family:'DM Sans',system-ui,-apple-system,san
 .av-hr{background:linear-gradient(135deg,var(--gold),var(--gold-lo))}
 .av-prem{background:linear-gradient(135deg,var(--green),#22c55e)}
 .av-free{background:linear-gradient(135deg,var(--blue),#2b7de9)}
+.av-props{background:linear-gradient(135deg,var(--purple),#7c3aed)}
 .bw-info{flex:1}
 .bw-user-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
 .bw-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600}
@@ -449,6 +451,7 @@ body{background:var(--page-bg);font-family:'DM Sans',system-ui,-apple-system,san
 .tier-hr{background:rgba(212,168,67,.12);border:1px solid rgba(212,168,67,.2);color:var(--gold)}
 .tier-prem{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);color:var(--green)}
 .tier-free{background:rgba(78,168,246,.1);border:1px solid rgba(78,168,246,.2);color:var(--blue)}
+.tier-props{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2);color:var(--purple)}
 .bw-pick{font-size:12px;color:var(--txt2)}
 .bw-payout{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:var(--green);white-space:nowrap}
 
